@@ -20,7 +20,7 @@ a {
 }
 
 footer {
-  margin-top: auto;
+    margin-top: auto;
 }
 
 a:hover {
@@ -30,11 +30,20 @@ a:hover {
 .output {
     width: 100%;
     max-width: 80ch;
-    animation: fade 4s;
+    animation: fade 2s;
+}
+
+.command-line {
+    display: flex;
+    align-items: baseline;
+}
+
+.prompt {
+    white-space-collapse: preserve;
 }
 
 .typing {
-    width: 33ch;
+    width: 15ch;
 
     white-space: nowrap;
     overflow: hidden;
@@ -42,7 +51,7 @@ a:hover {
     border-right: 10px solid #9e9e9e;
 
     animation:
-        typing 2s steps(33, end),
+        typing 1s steps(15, end),
         blink 0.5s step-end infinite alternate;
 }
 
@@ -52,7 +61,7 @@ a:hover {
     }
 
     to {
-        width: 33ch;
+        width: 15ch;
     }
 }
 
