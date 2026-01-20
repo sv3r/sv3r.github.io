@@ -6,6 +6,7 @@
     --cursor: #9e9e9e;
     --selection-bg: #b2ceee;
     --selection-fg: #080808;
+    --prompt: #e3c78a;
 
     --font: "JetBrains Mono", monospace;
 }
@@ -30,6 +31,11 @@ body {
     color: var(--selection-fg);
 }
 
+pre,
+ul {
+    margin: 0;
+}
+
 a {
     color: var(--link);
     text-decoration: none;
@@ -49,10 +55,18 @@ footer {
     animation: fade 3s;
 }
 
+.prompt {
+    color: var(--prompt);
+}
+
 .command-line {
     display: flex;
     align-items: baseline;
     gap: 1ch;
+}
+
+.output p+.command-line {
+    margin-top: 2rem;
 }
 
 .typing {
@@ -85,6 +99,7 @@ footer {
 }
 
 @keyframes fade {
+
     0%,
     50% {
         opacity: 0;
