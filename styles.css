@@ -6,6 +6,11 @@
     font-weight: 500;
 }
 
+::selection {
+    color: #080808;
+    background: #b2ceee;
+}
+
 body {
     min-height: 95vh;
     padding: 1rem;
