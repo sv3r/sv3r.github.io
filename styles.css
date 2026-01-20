@@ -1,35 +1,46 @@
-* {
-    background: #0d0d0d;
-    color: #bdbdbd;
+:root {
+    --bg: #0d0d0d;
+    --fg: #bdbdbd;
+    --link: #80a0ff;
+    --link-hover: #b2ceee;
+    --cursor: #9e9e9e;
+    --selection-bg: #b2ceee;
+    --selection-fg: #080808;
 
-    font-family: "JetBrains Mono", monospace;
-    font-weight: 500;
-}
-
-::selection {
-    color: #080808;
-    background: #b2ceee;
+    --font: "JetBrains Mono", monospace;
 }
 
 body {
     min-height: 95vh;
-    padding: 1rem;
+    padding: 1.5rem;
+    margin: 0;
+
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font);
+    font-weight: 500;
     font-size: 1rem;
+
     display: flex;
     flex-direction: column;
 }
 
+::selection {
+    background: var(--selection-bg);
+    color: var(--selection-fg);
+}
+
 a {
-    color: #80a0ff;
+    color: var(--link);
     text-decoration: none;
+}
+
+a:hover {
+    color: var(--link-hover);
 }
 
 footer {
     margin-top: auto;
-}
-
-a:hover {
-    color: #b2ceee;
 }
 
 .output {
@@ -41,19 +52,16 @@ a:hover {
 .command-line {
     display: flex;
     align-items: baseline;
-}
-
-.prompt {
-    white-space-collapse: preserve;
+    gap: 1ch;
 }
 
 .typing {
-    width: 15ch;
-
+    display: inline-block;
     white-space: nowrap;
     overflow: hidden;
 
-    border-right: 10px solid #9e9e9e;
+    border-right: 10px solid var(--cursor);
+    width: 15ch;
 
     animation:
         typing 1.5s steps(15, end),
@@ -77,10 +85,7 @@ a:hover {
 }
 
 @keyframes fade {
-    0% {
-        opacity: 0;
-    }
-
+    0%,
     50% {
         opacity: 0;
     }
