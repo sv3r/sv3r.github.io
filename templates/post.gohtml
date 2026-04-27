@@ -1,0 +1,42 @@
+{{ define "content" }}
+    <div class="post-page">
+        <section class="post-left">
+            <div class="command-line">
+                <span class="prompt">[sv3r@website ~]$</span>
+                <span class="typing typing-medium-instant">cat post.md</span>
+            </div>
+
+            <main class="post-main">
+                <article>
+                    <h1>{{ .Post.Title }}</h1>
+                    <time>{{ .Post.Date.Format "2006-01-02" }}</time> By {{ .Post.Author }}
+
+                    <div class="post-content">
+                        {{ .Post.Content }}
+                    </div>
+                </article>
+            </main>
+        </section>
+
+        <aside class="home-posts">
+            <h1>other posts</h1>
+
+            {{ if .Posts }}
+                <ul class="posts">
+                    {{ range .Posts }}
+                        <li>
+                            <a href="/posts/{{ .Slug }}/">{{ .Title }}</a>
+                            <time>{{ .Date.Format "2006-01-02" }}</time>
+
+                            {{ if .Description }}
+                                <p>{{ .Description }}</p>
+                            {{ end }}
+                        </li>
+                    {{ end }}
+                </ul>
+            {{ else }}
+                <p>No posts yet.</p>
+            {{ end }}
+        </aside>
+    </div>
+{{ end }}

@@ -11,8 +11,14 @@
     --font: "JetBrains Mono", monospace;
 }
 
+html {
+    height: 100%;
+    overflow: hidden;
+}
+
 body {
-    min-height: 95vh;
+    height: 100vh;
+    box-sizing: border-box;
     padding: 1.5rem;
     margin: 0;
 
@@ -24,6 +30,7 @@ body {
 
     display: flex;
     flex-direction: column;
+    overflow: hidden;
 }
 
 ::selection {
@@ -31,7 +38,10 @@ body {
     color: var(--selection-fg);
 }
 
-pre,
+pre {
+    margin: 0 0 1.5em;
+}
+
 ul {
     margin: 0;
 }
@@ -46,6 +56,7 @@ a:hover {
 }
 
 footer {
+    flex-shrink: 0;
     margin-top: auto;
 }
 
@@ -53,6 +64,7 @@ footer {
     width: 100%;
     max-width: 80ch;
     animation: fade 3s;
+    margin-bottom: 0;
 }
 
 .prompt {
@@ -65,21 +77,194 @@ footer {
     gap: 1ch;
 }
 
-.output p+.command-line {
+.output p + .command-line {
     margin-top: 2rem;
 }
 
 .typing {
+    --chars: 15ch;
+    --steps: 15;
+    --duration: 1.5s;
+
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;
 
     border-right: 10px solid var(--cursor);
-    width: 15ch;
+    width: var(--chars);
 
     animation:
-        typing 1.5s steps(15, end),
-        blink 0.5s step-end infinite alternate;
+            typing var(--duration) steps(var(--steps), end),
+            blink 0.5s step-end infinite alternate;
+}
+
+.typing-short {
+    --chars: 8ch;
+    --steps: 8;
+    --duration: 1s;
+}
+
+.typing-medium {
+    --chars: 11ch;
+    --steps: 11;
+    --duration: 1.1s;
+}
+
+.typing-long {
+    --chars: 15ch;
+    --steps: 15;
+    --duration: 1.5s;
+}
+
+.typing-medium-instant {
+    --chars: 11ch;
+    --steps: 11;
+    --duration: 0s;
+}
+
+h1 {
+    color: var(--fg);
+    font-size: 1.25em;
+    margin-top: 2rem;
+}
+
+.posts {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    padding-left: 0;
+    list-style: none;
+}
+
+.posts li p {
+    margin: 0.25rem 0 0;
+}
+
+time {
+    display: block;
+    color: var(--prompt);
+    font-size: 0.85em;
+    margin-top: 0.25rem;
+}
+
+.post-content {
+    margin-top: 2rem;
+    line-height: 1.6;
+}
+
+.post-content pre {
+    overflow-x: auto;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+
+    background: #161b22;
+    border: 2px solid #333333;
+    border-radius: 0.75rem;
+}
+
+.post-content code {
+    font-family: var(--font);
+}
+
+.post-content pre code {
+    display: block;
+    color: inherit;
+    background: transparent;
+    border: 0;
+    padding: 0;
+}
+
+.post-content :not(pre) > code {
+    padding: 0.15rem 0.35rem;
+    background: #161b22;
+    border: 1px solid #333333;
+    border-radius: 0.35rem;
+
+    color: var(--prompt);
+    font-family: var(--font);
+    font-size: 0.9em;
+}
+
+.post-page {
+    flex: 1;
+    min-height: 0;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 28rem);
+    justify-content: space-between;
+    gap: 1.5rem;
+    align-items: start;
+    width: 100%;
+    overflow: hidden;
+}
+
+.post-left {
+    width: 100%;
+    min-width: 0;
+}
+
+.post-left .command-line {
+    flex-shrink: 0;
+}
+
+.post-main {
+    height: calc(100vh - 8.5rem);
+    padding-top: 0.75rem;
+    padding-right: 0.75rem;
+    padding-bottom: 1rem;
+    overflow-y: auto;
+}
+
+.homepage {
+    flex: 1;
+    min-height: 0;
+
+    display: grid;
+    grid-template-columns: minmax(0, 80ch) minmax(18rem, 32rem);
+    justify-content: space-between;
+    gap: 4rem;
+    align-items: start;
+    width: 100%;
+
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+.home-left {
+    min-width: 0;
+}
+
+.home-posts {
+    min-width: 0;
+    min-height: 0;
+    max-height: calc(100vh - 6.5rem);
+    padding-top: 0;
+    padding-right: 0.75rem;
+    padding-bottom: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin-bottom: 0;
+}
+
+.home-posts .command-line {
+    flex-shrink: 0;
+}
+
+.home-posts h1 {
+    flex-shrink: 0;
+    margin-top: 2rem;
+}
+
+.home-posts .posts {
+    flex: 1;
+    min-height: 0;
+    margin-top: 1rem;
+    padding-right: 0.75rem;
+
+    overflow-y: auto;
 }
 
 @keyframes typing {
@@ -88,7 +273,7 @@ footer {
     }
 
     to {
-        width: 15ch;
+        width: var(--chars);
     }
 }
 
@@ -99,7 +284,6 @@ footer {
 }
 
 @keyframes fade {
-
     0%,
     50% {
         opacity: 0;
@@ -110,8 +294,31 @@ footer {
     }
 }
 
-@media (min-width:600px) {
+@media (min-width: 600px) {
     body {
         font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 1000px) {
+    .homepage,
+    .post-page {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .home-posts {
+        min-height: 0;
+        overflow: hidden;
+    }
+
+    .home-posts .posts {
+        max-height: 24rem;
+        overflow-y: auto;
+    }
+
+    .post-main {
+        height: auto;
+        max-height: none;
     }
 }

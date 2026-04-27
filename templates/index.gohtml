@@ -1,0 +1,62 @@
+{{ define "content" }}
+    <div class="homepage">
+        <section class="home-left">
+            <div class="command-line">
+                <span class="prompt">[sv3r@website ~]$ </span>
+                <span class="typing typing-long">cat about-me.md</span>
+            </div>
+
+            <main class="output">
+<pre>
+         ____
+  ____ _|__ /_ _
+ (_-&lt; V /|_ \ '_|
+ /__/\_/|___/_|
+</pre>
+
+                <ul class="links">
+                    <li><a href="https://github.com/sv3r" target="_blank">GitHub</a></li>
+                    <li><a href="https://twitch.tv/sv3r" target="_blank">Twitch</a></li>
+                </ul>
+
+                <p>
+                    I'm Sverre, a Computer Science student from Belgium with a passion for software
+                    engineering and cybersecurity. I sometimes code stuff for
+                    <a href="https://creatorsmp.nl" target="_blank">@CreatorSMP</a>.
+                    I enjoy building projects that combine performance, security, and clean design.
+                </p>
+
+                <div class="command-line">
+                    <span class="prompt">[sv3r@website ~]$</span>
+                    <span>cat contact.md</span>
+                </div>
+
+                <ul class="contact">
+                    <li>Discord: sv3r</li>
+                    <li>Email: hello@sv3r.dev</li>
+                </ul>
+            </main>
+        </section>
+
+        <aside class="home-posts output">
+            <h1>latest posts</h1>
+
+            {{ if .Posts }}
+                <ul class="posts">
+                    {{ range .Posts }}
+                        <li>
+                            <a href="/posts/{{ .Slug }}/">{{ .Title }}</a>
+                            <time>{{ .Date.Format "2006-01-02" }}</time>
+
+                            {{ if .Description }}
+                                <p>{{ .Description }}</p>
+                            {{ end }}
+                        </li>
+                    {{ end }}
+                </ul>
+            {{ else }}
+                <p>No posts yet.</p>
+            {{ end }}
+        </aside>
+    </div>
+{{ end }}
