@@ -22,7 +22,12 @@ func Render(templatePath, outputPath string, data PageData) {
 
 	file, err := os.Create(outputPath)
 	must(err)
-	defer file.Close()
+
+	defer func() {
+		if err := file.Close(); err != nil {
+			log.Fatal(err)
+		}
+	}()
 
 	must(tmpl.ExecuteTemplate(file, "base", data))
 }
