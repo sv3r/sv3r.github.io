@@ -12,25 +12,27 @@
 }
 
 html {
-    height: 100%;
-    overflow: hidden;
+    min-height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 body {
-    height: 100vh;
+    min-height: 100vh;
     box-sizing: border-box;
     padding: 1.5rem;
     margin: 0;
 
     background: var(--bg);
     color: var(--fg);
-    font-family: var(--font);
+    font-family: var(--font), monospace;
     font-weight: 500;
     font-size: 1rem;
 
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 ::selection {
@@ -164,7 +166,7 @@ time {
 }
 
 .post-content code {
-    font-family: var(--font);
+    font-family: var(--font), monospace;
 }
 
 .post-content pre code {
@@ -182,7 +184,7 @@ time {
     border-radius: 0.35rem;
 
     color: var(--prompt);
-    font-family: var(--font);
+    font-family: var(--font), monospace;
     font-size: 0.9em;
 }
 
@@ -196,7 +198,7 @@ time {
     gap: 1.5rem;
     align-items: start;
     width: 100%;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .post-left {
@@ -227,7 +229,7 @@ time {
     align-items: start;
     width: 100%;
 
-    overflow: hidden;
+    overflow: visible;
     margin-bottom: 0;
 }
 
@@ -301,20 +303,26 @@ time {
 }
 
 @media (max-width: 1000px) {
+    body {
+        min-height: 100vh;
+        overflow-y: auto;
+    }
+
     .homepage,
     .post-page {
         grid-template-columns: 1fr;
         gap: 3rem;
+        overflow: visible;
     }
 
     .home-posts {
-        min-height: 0;
-        overflow: hidden;
+        max-height: none;
+        overflow: visible;
     }
 
     .home-posts .posts {
-        max-height: 24rem;
-        overflow-y: auto;
+        max-height: none;
+        overflow: visible;
     }
 
     .post-main {
